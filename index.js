@@ -38,7 +38,7 @@ class WatchDeployPlugin {
             //   console.error("r---c", module.userRequest,this.changFile);
                let userRequest = module.userRequest.replaceAll("\\", "/");
               this.changFile = this.changFile.replaceAll("\\", "/");
-              if (module.userRequest == this.changFile) {
+              if (userRequest == this.changFile) {
               //  console.error("chunk", chunk.files);
                 chunk.files.forEach(file => {
                   var projectName= path.posix.normalize(file).split(path.posix.sep)[1];
