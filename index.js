@@ -39,7 +39,7 @@ class WatchDeployPlugin {
                         const stats = fs.statSync(f);
                         if (stats.isFile()) {
                             console.error("重新编译，改变的文件：", f);
-                            this.changFile = f;
+                            this.changFile = path.posix.format(f);
                         }
                         // if(path.posix)
                     }
@@ -53,14 +53,13 @@ class WatchDeployPlugin {
                         const modules = chunk.getModules();
                         modules.forEach(module => {
                             //   console.error("r---c", module.userRequest,this.changFile);
-                            let userRequest = module.userRequest.replace(/\\/g, "/");
-                            this.changFile = this.changFile.replace(/\\/g, "/");
+                            let userRequest = path.posix.format(module.userRequest);
                             if (userRequest === this.changFile) {
                                 //  console.error("chunk", chunk.files);
                                 chunk.files.forEach(file => {
                                     var projectName = path.posix.normalize(file).split(path.posix.sep)[1];
-                                    var outProjecPath = path.resolve(compiler.outputPath, projectName);
-                                    var outFilePath = path.resolve(compiler.outputPath, projectName, this.options.projects[projectName]);
+                                    var outProjecPath = path.posix.resolve(compiler.outputPath, projectName);
+                                    var outFilePath = path.posix.resolve(compiler.outputPath, projectName, this.options.projects[projectName]);
                                     //  console.error("projectName", projectName,outProjecPath);
                                     //  console.error("outFilePath", outFilePath);
                                     switch (this.options.type) {
