@@ -39,7 +39,7 @@ class WatchDeployPlugin {
                         const stats = fs.statSync(f);
                         if (stats.isFile()) {
                             console.error("重新编译，改变的文件：", f);
-                            this.changFile = path.posix.format(f);
+                            this.changFile = path.posix.normalize(f);
                         }
                         // if(path.posix)
                     }
@@ -53,7 +53,7 @@ class WatchDeployPlugin {
                         const modules = chunk.getModules();
                         modules.forEach(module => {
                             //   console.error("r---c", module.userRequest,this.changFile);
-                            let userRequest = path.posix.format(module.userRequest);
+                            let userRequest = path.posix.normalize(module.userRequest);
                             if (userRequest === this.changFile) {
                                 //  console.error("chunk", chunk.files);
                                 chunk.files.forEach(file => {
