@@ -1,5 +1,6 @@
 const http = require("http");
 const path = require("path");
+const fs = require('fs');
 
 // const {Compiler} = require("webpack");
 
@@ -34,9 +35,15 @@ class WatchDeployPlugin {
             compiler.hooks.watchRun.tap("WatchDeployPlugin", (compiler) => {
                 const modifiedFiles = compiler.modifiedFiles;
                 if (modifiedFiles) {
-                    const changedFiles = modifiedFiles.keys();
-                    console.error("重新编译，改变的文件：", changedFiles);
-                    this.changFile = changedFiles[0];
+                    for (let i = 0; i < modifiedFiles.length; i += 1) {
+                        const f = modifiedFiles[i];
+                        const stats = fs.statSync(f);
+                        if (stats.isFile()) {
+                            console.error("重新编译，改变的文件：", f);
+                            this.changFile = f;
+                        }
+                        // if(path.posix)
+                    }
                 }
                 // const changedTimes = compiler.watchFileSystem.watcher.mtimes;
             });
