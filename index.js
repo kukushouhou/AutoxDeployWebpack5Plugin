@@ -39,7 +39,7 @@ class WatchDeployPlugin {
                         const stats = fs.statSync(f);
                         if (stats.isFile()) {
                             console.error("重新编译，改变的文件：", f);
-                            this.changFile = path.posix.normalize(f);
+                            this.changFile = f.replace(/\\/g, '/');
                         }
                         // if(path.posix)
                     }
@@ -53,27 +53,29 @@ class WatchDeployPlugin {
                         const modules = chunk.getModules();
                         modules.forEach(module => {
                             //   console.error("r---c", module.userRequest,this.changFile);
-                            let userRequest = path.posix.normalize(module.userRequest);
-                            if (userRequest === this.changFile) {
-                                //  console.error("chunk", chunk.files);
-                                chunk.files.forEach(file => {
-                                    var projectName = path.posix.normalize(file).split(path.posix.sep)[1];
-                                    var outProjecPath = path.posix.resolve(compiler.outputPath, projectName);
-                                    var outFilePath = path.posix.resolve(compiler.outputPath, projectName, this.options.projects[projectName]);
-                                    //  console.error("projectName", projectName,outProjecPath);
-                                    //  console.error("outFilePath", outFilePath);
-                                    switch (this.options.type) {
-                                        case "deploy":
-                                            this.sendCmd("save", "/" + outProjecPath);
-                                            break;
-                                        case "rerun":
-                                            this.sendCmd("rerun", "/" + outFilePath);
-                                            break;
-                                        default:
-                                            console.error("重新编译后,不进行任何操作");
-                                            break;
-                                    }
-                                })
+                            if (module.userRequest) {
+                                let userRequest = module.userRequest.replace(/\\/g, '/');
+                                if (userRequest === this.changFile) {
+                                    //  console.error("chunk", chunk.files);
+                                    chunk.files.forEach(file => {
+                                        var projectName = path.posix.normalize(file).split(path.posix.sep)[1];
+                                        var outProjecPath = path.posix.resolve(compiler.outputPath, projectName);
+                                        var outFilePath = path.posix.resolve(compiler.outputPath, projectName, this.options.projects[projectName]);
+                                        //  console.error("projectName", projectName,outProjecPath);
+                                        //  console.error("outFilePath", outFilePath);
+                                        switch (this.options.type) {
+                                            case "deploy":
+                                                this.sendCmd("save", "/" + outProjecPath);
+                                                break;
+                                            case "rerun":
+                                                this.sendCmd("rerun", "/" + outFilePath);
+                                                break;
+                                            default:
+                                                console.error("重新编译后,不进行任何操作");
+                                                break;
+                                        }
+                                    })
+                                }
                             }
                         })
                     })
