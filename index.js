@@ -59,8 +59,8 @@ class WatchDeployPlugin {
                                     //  console.error("chunk", chunk.files);
                                     chunk.files.forEach(file => {
                                         const projectName = path.posix.normalize(file).split(path.posix.sep)[1];
-                                        const outProjectsPath = path.posix.join(compiler.outputPath, projectName);
-                                        const outFilePath = path.posix.join(outProjectsPath, this.options.projects[projectName]);
+                                        const outProjectsPath = path.posix.join(compiler.outputPath, projectName).replace(/\\/g, '/');
+                                        const outFilePath = path.posix.join(outProjectsPath, this.options.projects[projectName]).replace(/\\/g, '/');
                                         //  console.error("projectName", projectName,outProjecPath);
                                         //  console.error("outFilePath", outFilePath);
                                         switch (this.options.type) {
