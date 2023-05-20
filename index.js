@@ -35,8 +35,7 @@ class WatchDeployPlugin {
             compiler.hooks.watchRun.tap("WatchDeployPlugin", (compiler) => {
                 const modifiedFiles = compiler.modifiedFiles;
                 if (modifiedFiles) {
-                    for (let i = 0; i < modifiedFiles.length; i += 1) {
-                        const f = modifiedFiles[i];
+                    for (const f of modifiedFiles) {
                         const stats = fs.statSync(f);
                         if (stats.isFile()) {
                             console.error("重新编译，改变的文件：", f);
