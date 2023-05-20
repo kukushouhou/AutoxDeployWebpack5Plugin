@@ -53,8 +53,8 @@ class WatchDeployPlugin {
                         const modules = chunk.getModules();
                         modules.forEach(module => {
                             //   console.error("r---c", module.userRequest,this.changFile);
-                            let userRequest = module.userRequest.replaceAll("\\", "/");
-                            this.changFile = this.changFile.replaceAll("\\", "/");
+                            let userRequest = module.userRequest.replace(/\\/g, "/");
+                            this.changFile = this.changFile.replace(/\\/g, "/");
                             if (userRequest === this.changFile) {
                                 //  console.error("chunk", chunk.files);
                                 chunk.files.forEach(file => {
