@@ -34,7 +34,7 @@ class WatchDeployPlugin {
             compiler.hooks.watchRun.tap("WatchDeployPlugin", (compiler) => {
                 const modifiedFiles = compiler.modifiedFiles;
                 if (modifiedFiles) {
-                    const changedFiles = Object.keys(modifiedFiles);
+                    const changedFiles = modifiedFiles.keys();
                     console.error("重新编译，改变的文件：", changedFiles);
                     this.changFile = changedFiles[0];
                 }
