@@ -58,14 +58,14 @@ class WatchDeployPlugin {
                                 if (userRequest === this.changFile) {
                                     //  console.error("chunk", chunk.files);
                                     chunk.files.forEach(file => {
-                                        var projectName = path.posix.normalize(file).split(path.posix.sep)[1];
-                                        var outProjecPath = path.posix.resolve(compiler.outputPath, projectName);
-                                        var outFilePath = path.posix.resolve(compiler.outputPath, projectName, this.options.projects[projectName]);
+                                        const projectName = path.posix.normalize(file).split(path.posix.sep)[1];
+                                        const outProjectsPath = path.posix.join(compiler.outputPath, projectName);
+                                        const outFilePath = path.posix.join(outProjectsPath, this.options.projects[projectName]);
                                         //  console.error("projectName", projectName,outProjecPath);
                                         //  console.error("outFilePath", outFilePath);
                                         switch (this.options.type) {
                                             case "deploy":
-                                                this.sendCmd("save", "/" + outProjecPath);
+                                                this.sendCmd("save", "/" + outProjectsPath);
                                                 break;
                                             case "rerun":
                                                 this.sendCmd("rerun", "/" + outFilePath);
