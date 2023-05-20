@@ -1,18 +1,21 @@
 {
-  "name": "autox-deploy-webpack-plugin",
-  "version": "1.0.7",
-  "description": "auto.js运行状态",
+  "name": "autox-deploy-webpack5-plugin",
+  "version": "1.0.0",
+  "description": "Webpack5下的Autox.js电脑端自动部署手机",
   "main": "index.js",
   "scripts": {
     "test": "start"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yhq-yibo/AutoxDeployWebpackPlugin"
+    "url": "https://github.com/kukushouhou/AutoxDeployWebpack5Plugin.git"
   },
   "keywords": [
     ""
   ],
-  "author": "yhq-yibo",
-  "license": "ISC"
+  "author": "kukushouhou",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.83.1"
+  }
 }

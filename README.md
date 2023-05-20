@@ -1,11 +1,11 @@
-# AutoxDeployWebpackPlugin
+# AutoxDeployWebpack5Plugin
 和Vscode插件Auto.js-VSCodeExt-Fixed结合发布指令到手机上
 
 具体用法可参考 [webpack-autojs] (https://github.com/kkevsekk1/webpack-autojs)
 
 # 准备
  - 在vsCode中安装Auto.js-VSCodeExt-Fixed插件
- - npm install autox-deploy-webpack-plugin --save
+ - npm install autox-deploy-webpack5-plugin --save
 
 # 参数
 
